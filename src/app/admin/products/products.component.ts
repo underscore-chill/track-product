@@ -48,13 +48,14 @@ export class ProductTableComponent implements OnInit {
         next: (response) => {
           if (response.success) {
             this.products.set(response.data);
-            this.filteredProducts.set([...response.data]);
+            this.filteredProducts.set(response.data);
           }
           this.isLoading.set(false);
         },
         error: (error) => {
           this.isLoading.set(false);
-
+          this.products.set([]);
+          this.filteredProducts.set([]);
           this.toast.error(
             error.error.message || 'Error fetching product.',
             error.statusText ?? ''
